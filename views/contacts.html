@@ -1,0 +1,88 @@
+<div ng-controller="ContactsController">
+    <div class="row">
+        <div class="col-6">
+            <button type="button" class="btn btn-primary btn-lg" ng-click="newContact()">
+                <i class="fa fa-user-circle fa-lg"></i> Novo Contato
+            </button>
+        </div>
+        <div class="col-6">
+            <div class="d-flex">
+                <input class="form-control form-control-lg" type="text" ng-model="search" placeholder="Pesquisar por nome...">
+                <button class="btn btn-primary search-button" type="submit" disabled>
+                    <i class="fa fa-search fa-lg"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <table class="table table-hover" id="table-body">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Email</th>
+                <th scope="col">Telefone</th>
+                <th scope="col">.:.</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-light" ng-repeat="contact in contacts | filter: { name: search }">
+                <th class="align-middle">{{ contact._id }}</th>
+                <th class="align-middle">{{ contact.name }}</th>
+                <th class="align-middle">{{ contact.email }}</th>
+                <th class="align-middle">{{ contact.phone }}</th>
+                <th class="align-middle">
+                    <button type="button" class="btn btn-warning btn-sm" ng-click="editContact(contact)">
+                        <i class="fa fa-pencil fa-lg"></i> Editar
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="removeContact(contact)">
+                        <i class="fa fa-trash-o fa-lg"></i> Excluir
+                    </button>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="modal" id="contactForm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ contact._id ? "Atualizar" : "Novo" }} Contato</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-success" role="alert" ng-show="saved">
+                        Salvo com sucesso.
+                    </div>
+                    <div class="alert alert-danger" role="alert" ng-show="error">
+                        Falha ao salvar.
+                        <ul id="error-list">
+                            <li>{{ error.error }}</li>
+                        </ul>
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Nome:</label>
+                            <input type="text" class="form-control" ng-model="contact.name" placeholder="Digite um nome...">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Email:</label>
+                            <input type="text" class="form-control" ng-model="contact.email" placeholder="Digite um email...">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Telefone:</label>
+                            <input type="text" class="form-control" ng-model="contact.phone" placeholder="Digite um telefone...">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" ng-click="closeForm()" class="btn btn-secondary">
+                        <i class="fa fa-times fa-lg"></i> Fechar
+                    </button>
+                    <button type="button" ng-click="submitForm()" class="btn btn-primary">
+                        <i class="fa fa-floppy-o fa-lg"></i> Salvar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

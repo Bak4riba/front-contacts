@@ -1,0 +1,16 @@
+#table-container {
+    margin-top: 120px
+}
+
+#table-body {
+    margin-top: 20px
+}
+
+#error-list {
+    margin-bottom: 0px;
+}
+
+.search-button:disabled {
+    background: #593196;
+    opacity: 1;
+}
