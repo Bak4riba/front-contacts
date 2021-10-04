@@ -7,14 +7,14 @@ app.controller("ContactsController", function($scope, $http) {
 
     $http.defaults.headers.common["x-access-token"] = localStorage.getItem("loggedUser");
 
-    $http.get("http://localhost:8888/api/v1/contacts")
+    $http.get("https://bak4riba-contacts.herokuapp.com/api/v1/contacts")
         .then((response) => {
             $scope.contacts = response.data;
         })
         .catch((err) => {});
 
     $scope.removeContact = function(contact) {
-        $http.delete(`http://localhost:8888/api/v1/contacts/${contact._id}`)
+        $http.delete(`https://bak4riba-contacts.herokuapp.com/api/v1/contacts/${contact._id}`)
             .then((response) => {
                 const index = $scope.contacts.indexOf(contact);
                 $scope.contacts.splice(index, 1);
@@ -23,7 +23,7 @@ app.controller("ContactsController", function($scope, $http) {
     }
 
     $scope.createContact = function(contact) {
-        $http.post("http://localhost:8888/api/v1/contacts", contact)
+        $http.post("https://bak4riba-contacts.herokuapp.com/api/v1/contacts", contact)
             .then((response) => {
                 $scope.contacts.push(response.data);
                 $scope.saved = true;
@@ -34,7 +34,7 @@ app.controller("ContactsController", function($scope, $http) {
     }
 
     $scope.updateContact = function(contact) {
-        $http.put(`http://localhost:8888/api/v1/contacts/${contact._id}`, contact)
+        $http.put(`https://bak4riba-contacts.herokuapp.com/api/v1/contacts/${contact._id}`, contact)
             .then((response) => {
                 const found = $scope.contacts.find(item => item._id === contact._id);
                 const index = $scope.contacts.indexOf(found);
